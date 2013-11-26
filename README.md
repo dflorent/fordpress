@@ -66,7 +66,7 @@ Affiche la(les) valeur(s) d'une variable, de manière à ce qu'elle soit lisible
 Florent\FordPress::debug($var);
 ```
 
-Séparation de la logique métier de la présentation
+Séparation de la logique métier et de la présentation
 --------------------------------------------------
 
 Créer un le template WordPress correspondant au [template hierarchy](http://codex.wordpress.org/Template_Hierarchy).

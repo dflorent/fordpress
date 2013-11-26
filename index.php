@@ -1,0 +1,2 @@
+<?php
+Acme\FooController::bar();

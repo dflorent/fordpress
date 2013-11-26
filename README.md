@@ -77,7 +77,7 @@ Initialiser le controller comme suit :
 Acme\FooController::bar();
 ```
 
-_Le namespace Acme doit être déplarer dans l'autoloader du composer.json._
+_Le namespace Acme doit être déclarer dans l'autoloader du composer.json._
 
 Créer le controller dans le répertoire src/Acme/. _Ici, "Acme" correspond au namespace déplarer dans composer.json._
 

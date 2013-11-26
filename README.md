@@ -47,7 +47,7 @@ Créer un fichier composer.json à la racine de l'installation WordPress et remp
 }
 ```
 
-et lancer la commande : php composer.phar install
+Lancer la commande : php composer.phar install
 
 Insérer la ligne suivante dans le fichier functions.php :
 
@@ -55,7 +55,7 @@ Insérer la ligne suivante dans le fichier functions.php :
 require_once ABSPATH . 'vendor/autoload.php';
 ```
 
-et activer le thème
+Activer le thème
 
 TODO
 ----

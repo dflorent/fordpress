@@ -47,7 +47,7 @@ Créer un fichier composer.json à la racine de l'installation WordPress et remp
 }
 ```
 
-Lancer la commande : php composer.phar install.
+Lancer la commande : php composer.phar install
 
 Insérer la ligne suivante dans le fichier functions.php :
 

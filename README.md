@@ -60,6 +60,8 @@ Activer le thème
 Debug
 ------------------------------------------------
 
+Affiche la(les) valeur(s) d'une variable, de manière à ce qu'elle soit lisible.
+
 ```
 Florent\FordPress::debug($var);
 ```

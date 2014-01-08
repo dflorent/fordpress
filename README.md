@@ -231,6 +231,7 @@ echo Florent\FordPress::add_google_analytics('UA-1234-56');
 TODO
 ----
 
+* Ajouts de javascripts via CDN
 * Panneaux d'options
 * CSS pour l'écran de login
 * Enregistrement de sidebars

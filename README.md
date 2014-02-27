@@ -227,6 +227,13 @@ Ajouter Google Analytics dans les vues
 echo Florent\FordPress::add_google_analytics('UA-1234-56');
 ```
 
+Optimiser les fichiers HTML
+---------------------------
+```php
+// Optimiser les fichiers HTML
+Florent\FordPress::html_minify();
+```
+
 
 TODO
 ----

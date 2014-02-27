@@ -4,7 +4,7 @@ namespace Florent;
 
 /**
  * Fordpress est un framework personnel pour WordPress
- * 
+ *
  * @version 1.0
  */
 class Fordpress
@@ -56,7 +56,7 @@ class Fordpress
         }
         self::render('error_404');
     }
-	
+
 	/**
 	 * Fonction add_stylesheets()
 	 *
@@ -74,7 +74,7 @@ class Fordpress
 			}
 		});
 	}
-	
+
 	/**
 	 * Fonction add_javascripts()
 	 *
@@ -92,7 +92,7 @@ class Fordpress
 			}
 		});
 	}
-	
+
 	/**
 	 * Fonction passing_params_from_php_to_js()
 	 *
@@ -109,7 +109,7 @@ class Fordpress
 			}
 		});
 	}
-	
+
 	/**
 	 * Fonction supports()
 	 *
@@ -128,7 +128,7 @@ class Fordpress
 			}
 		}
 	}
-	
+
 	/**
 	 * Fonction add_image_sizes()
 	 *
@@ -143,7 +143,7 @@ class Fordpress
 			add_image_size($size[0], $size[1], $size[2], $size[3]);
 		}
 	}
-	
+
 	/**
 	 * Fonction add_menus()
 	 *
@@ -159,7 +159,7 @@ class Fordpress
 		}
 		register_nav_menus($locations);
 	}
-	
+
 	/**
 	 * Fonction excerpt()
 	 *
@@ -173,7 +173,7 @@ class Fordpress
 		return (strlen($string) > $length ? strip_tags(substr(substr($string,0,$length),0,
 		strrpos(substr($string,0,$length)," ")))."..." : strip_tags($string));
 	}
-	
+
 	/**
 	 * Fonction add_google_analytics()
 	 *
@@ -184,11 +184,11 @@ class Fordpress
 	 */
 	public static function add_google_analytics($UA = false)
 	{
-		
+
 		if ( $UA || preg_match('/^UA-\d+-\d+$/', $UA) == 1 ) {
 			return "<script>var _gaq=_gaq||[];_gaq.push(['_setAccount','" . $UA . "']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s)})();</script>";
 		}
-		
+
 	}
 
 	/**
@@ -214,7 +214,7 @@ class Fordpress
 	public static function add_post_types($post_types = array())
 	{
 		foreach ($post_types as $post_type) {
-			
+
 			$labels = array(
 			    'name'               => ucfirst($post_type[1]),
 			    'singular_name'      => ucfirst($post_type[2]),
@@ -269,7 +269,7 @@ class Fordpress
 	public static function add_taxonomies($taxonomies = array())
 	{
 		foreach ($taxonomies as $taxonomy) {
-			
+
 			$labels = array(
 			    'name' => ucfirst($taxonomy[1]),
 			    'menu_name' => ucfirst($taxonomy[1]),
@@ -291,7 +291,7 @@ class Fordpress
 			    'query_var' => true,
 			    'rewrite' => array( 'slug' => $taxonomy[0], 'with_front' => false  )
 			);
-			
+
 			register_taxonomy( $taxonomy[0], $taxonomy[4], $args );
 		}
 	}
@@ -394,6 +394,30 @@ class Fordpress
 			'output' => $output,
 			'posts'  => $posts
 		);
-		
-	}	
+
+	}
+
+    /**
+     * Fonction html_minify()
+     *
+     * Optimise les fichiers HTML
+     *
+     * @return string Retourne le HTML minimifié
+     * @since 1.1
+     */
+    public static function html_minify()
+    {
+        add_action('init', function() {
+            ob_start(function($html) {
+                $html = preg_replace('/<!--(?!s*(?:[if [^]]+]|!|>))(?:(?!-->).)*-->/s', '', $html);
+                $html = str_replace(array("\r\n", "\r", "\n", "\t"), '', $html);
+
+                while (stristr($html, '  ')) {
+                    $html = str_replace('  ', ' ', $html);
+                }
+
+                return $html;
+            });
+        });
+    }
 }

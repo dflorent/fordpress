@@ -408,16 +408,18 @@ class Fordpress
     public static function html_minify()
     {
         add_action('init', function() {
-            ob_start(function($html) {
-                $html = preg_replace('/<!--(?!s*(?:[if [^]]+]|!|>))(?:(?!-->).)*-->/s', '', $html);
-                $html = str_replace(array("\r\n", "\r", "\n", "\t"), '', $html);
+            if (!is_admin()) {
+                ob_start(function($html) {
+                    $html = preg_replace('/<!--(?!s*(?:[if [^]]+]|!|>))(?:(?!-->).)*-->/s', '', $html);
+                    $html = str_replace(array("\r\n", "\r", "\n", "\t"), '', $html);
 
-                while (stristr($html, '  ')) {
-                    $html = str_replace('  ', ' ', $html);
-                }
+                    while (stristr($html, '  ')) {
+                        $html = str_replace('  ', ' ', $html);
+                    }
 
-                return $html;
-            });
+                    return $html;
+                });
+            }
         });
     }
 }

@@ -222,7 +222,7 @@ class Fordpress
 			    'all_items'          => ($post_type[3] == 1) ? "Tous les $post_type[1]" : "Toutes les $post_type[1]",
 			    'add_new'            => 'Ajouter',
 			    'new_item'           => 'Ajouter',
-			    'add_new_item'       => ($post_type[3] == 1) ? "Ajouter un $post_type[1]" : "Ajouter une $post_type[1]",
+			    'add_new_item'       => ($post_type[3] == 1) ? "Ajouter un $post_type[2]" : "Ajouter une $post_type[2]",
 			    'edit_item'          => ($post_type[3] == 1) ? "Modifier le $post_type[2]" : "Modifier la $post_type[2]",
 			    'search_items'       => "Rechercher dans les $post_type[1]",
 			    'not_found'          => ($post_type[3] == 1) ? "Aucun $post_type[2] trouvé." : "Aucune $post_type[2] trouvée.",

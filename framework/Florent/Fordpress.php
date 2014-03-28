@@ -297,37 +297,59 @@ class Fordpress
 	}
 
 	/**
-	 * Fonction pagination()
-	 *
-	 * Gère une pagination via get_posts()
-	 *
-	 * @param array $options
-	 * @param int $options['per_page'] Nombre de posts par page
-	 * @param int $options['range'] Nombre de liens à afficher
-	 * @param string $options['previous'] Texte pour le lien précédent
-	 * @param string $options['next'] Texte pour le lien suivant
-	 * @param string $options['first'] Texte pour le lien premier
-	 * @param string $options['last'] Texte pour le lien dernier
-	 * @param string $options['class'] Class ajoutée à la div pagination
-	 * @param string $options['post_type'] Type de posts à requêter
-	 * @return array Retourne un tableau contenant le HTML pour l'affichage de la pagination
-	 * @since 1.0
-	 */
-	public static function pagination($options = array())
-	{
-		global $wp;
+     * Fonction pagination()
+     *
+     * Gère une pagination via get_posts()
+     *
+     * @param array $options
+     * @param int $options['per_page'] Nombre de posts par page
+     * @param int $options['range'] Nombre de liens à afficher
+     * @param string $options['previous'] Texte pour le lien précédent
+     * @param string $options['next'] Texte pour le lien suivant
+     * @param string $options['first'] Texte pour le lien premier
+     * @param string $options['last'] Texte pour le lien dernier
+     * @param string $options['class'] Class ajoutée à la div pagination
+     * @param string $options['post_type'] Type de posts à requêter
+     * @param array $options['tax_query'] Filtre avec un slug de taxonomy
+     * @return array Retourne un tableau contenant le HTML pour l'affichage de la pagination
+     * @since 1.0
+     */
+    public static function pagination($options = array())
+    {
+        global $wp;
 
-		$options['per_page'] = (!empty($options['per_page'])) ? $options['per_page'] : 10;
-		$options['range'] = (!empty($options['range'])) ? $options['range'] : 3;
-		$options['previous'] = (!empty($options['previous'])) ? $options['previous'] : 'Précédent';
-		$options['next'] = (!empty($options['next'])) ? $options['next'] : 'Suivant';
-		$options['first'] = (!empty($options['first'])) ? $options['first'] : '&lt;';
-		$options['last'] = (!empty($options['last'])) ? $options['last'] : '&gt;';
-		$options['class'] = (!empty($options['class'])) ? $options['class'] : 'pagination';
-		$options['post_type'] = (!empty($options['post_type'])) ? $options['post_type'] : 'post';
+        $options['per_page'] = (!empty($options['per_page'])) ? $options['per_page'] : 10;
+        $options['range'] = (!empty($options['range'])) ? $options['range'] : 3;
+        $options['previous'] = (!empty($options['previous'])) ? $options['previous'] : 'Précédent';
+        $options['next'] = (!empty($options['next'])) ? $options['next'] : 'Suivant';
+        $options['first'] = (!empty($options['first'])) ? $options['first'] : '&lt;';
+        $options['last'] = (!empty($options['last'])) ? $options['last'] : '&gt;';
+        $options['class'] = (!empty($options['class'])) ? $options['class'] : 'pagination';
+        $options['post_type'] = (!empty($options['post_type'])) ? $options['post_type'] : 'post';
 
-		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        $count_posts = wp_count_posts($options['post_type'])->publish;
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+        // Le nombre total de posts
+        $args = array(
+            'posts_per_page' => -1,
+            'paged'          => $paged,
+            'post_status'    => 'publish',
+            'post_type'      => $options['post_type'],
+        );
+
+        if (!empty($options['tax_query'])) {
+            $tax_query = array('tax_query' => array(
+                array(
+                    'taxonomy' => $options['tax_query'][0],
+                    'field' => 'slug',
+                    'terms' => $options['tax_query'][1]
+                )
+            ));
+            $args = array_merge($args, $tax_query);
+        }
+
+        $count_posts = count(get_posts($args));
+
         $count_pages = ceil($count_posts / $options['per_page']);
         $current_url = home_url( $wp->request );
         $url = str_replace('/page/' . $paged, '', $current_url);
@@ -335,7 +357,7 @@ class Fordpress
         $output = ( !empty($class) ) ? '<div class="' . $class . '">' : '<div class="pagination">';
 
         if ($count_pages > 1) {
-        	$range_min = ($options['range'] % 2 == 0) ? ($options['range'] / 2) - 1 : ($options['range'] - 1) / 2;
+            $range_min = ($options['range'] % 2 == 0) ? ($options['range'] / 2) - 1 : ($options['range'] - 1) / 2;
             $range_max = ($options['range'] % 2 == 0) ? $range_min + 1 : $range_min;
             $page_min = $paged - $range_min;
             $page_max = $paged + $range_max;
@@ -381,21 +403,37 @@ class Fordpress
         }
         $output .= '</div>';
 
-        $posts = get_posts(array(
-			'posts_per_page' => $options['per_page'],
-			'paged'          => $paged,
-			'post_status'    => 'publish',
-			'order_by'       => 'post_date',
-			'order'          => 'DESC',
-			'post_type'      => $options['post_type'],
-        ));
+        // Requête pour récupèrer les posts
+        $args = array(
+            'posts_per_page' => $options['per_page'],
+            'paged'          => $paged,
+            'post_status'    => 'publish',
+            'order_by'       => 'post_date',
+            'order'          => 'DESC',
+            'post_type'      => $options['post_type'],
+        );
 
-		return array(
-			'output' => $output,
-			'posts'  => $posts
-		);
+        // On filtre ici par un slug de taxonomy
+        if (!empty($options['tax_query'])) {
+            $tax_query = array('tax_query' => array(
+                array(
+                    'taxonomy' => $options['tax_query'][0],
+                    'field' => 'slug',
+                    'terms' => $options['tax_query'][1]
+                )
+            ));
+            $args = array_merge($args, $tax_query);
+        }
 
-	}
+        $posts = get_posts($args);
+
+        // Retourne les post et l'HTML de la pagination
+        return array(
+            'output' => $output,
+            'posts'  => $posts
+        );
+
+    }
 
     /**
      * Fonction html_minify()

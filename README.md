@@ -197,6 +197,8 @@ Florent\FordPress::add_menus(array(
 Ajout des types de contenu personnalisés
 ----------------------------------------
 
+### Usage
+
 Dans le fichier functions.php
 
 ```php
@@ -204,6 +206,18 @@ Florent\FordPress::add_post_types(array(
     array( 'livres', 'livres', 'livre', 1 ),
 ));
 ```
+
+### Paramètres
+
+1. Nom du post type à enregister, idéalement le pluriel en minuscules et sans accent (Requis)
+2. Nom du post type au pluriel (Requis)
+3. Nom du post type au singulier (Requis)
+4. Valeur 1 pour masculin, 0 pour féminin (Requis)
+5. Position (5 par défaut)
+6. Support (array('title', 'editor') par défaut)
+7. Nom du fichier d'icône placé dans "assets/icons" (generic.png par défaut)
+
+e.g. [https://codex.wordpress.org/Function_Reference/register_post_type](https://codex.wordpress.org/Function_Reference/register_post_type)
 
 Ajout des taxonomies
 --------------------

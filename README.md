@@ -204,6 +204,7 @@ Dans le fichier functions.php
 ```php
 Florent\FordPress::add_post_types(array(
     array( 'livres', 'livres', 'livre', 1 ),
+    array( 'evenements', 'événements', 'événement', 1, 5, array('title', 'thumbnail'), 'icon-events.png' )
 ));
 ```
 

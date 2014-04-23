@@ -218,7 +218,7 @@ Florent\FordPress::add_post_types(array(
 6. Support (array('title', 'editor') par défaut)*
 7. Nom du fichier d'icône placé dans "assets/icons" (generic.png par défaut)
 
-* [https://codex.wordpress.org/Function_Reference/register_post_type](https://codex.wordpress.org/Function_Reference/register_post_type)
+\* [https://codex.wordpress.org/Function_Reference/register_post_type](https://codex.wordpress.org/Function_Reference/register_post_type)
 
 Ajout des taxonomies
 --------------------

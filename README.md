@@ -120,7 +120,7 @@ Florent\FordPress::add_stylesheets(array(
 ### Paramètres
 
 1. Nom
-2. Chemin du fichier CSS en partant du répertoire du theme comme racine
+2. Chemin du fichier CSS en partant du répertoire du thème comme racine
 3. Mettre à la valeur **true** pour l'usage d'un CDN par exemple
 
 Ajouter les javascripts à son thème proprement
@@ -139,7 +139,7 @@ Florent\FordPress::add_javascripts(array(
 ### Paramètres
 
 1. Nom
-2. Chemin du fichier JS en partant du répertoire du theme comme racine
+2. Chemin du fichier JS en partant du répertoire du thème comme racine
 3. Mettre à la valeur **true** pour l'usage d'un CDN par exemple
 
 Passer des paramètres depuis PHP vers Javascript
@@ -161,7 +161,7 @@ Dans le fichier functions.php
 ```php
 Florent\FordPress::supports(array(
     // 'post-formats',
-    // array('post-thumbnails'),
+    // 'post-thumbnails',
     // array('post-thumbnails', array('post')),
     // 'custom-background',
     // 'custom-header',

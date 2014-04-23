@@ -106,6 +106,8 @@ Créer la vue dans le répertoire _views_ et l'afficher grace à la méthode ren
 Ajouter les feuilles de style à son thème proprement
 ----------------------------------------------------
 
+### Usage
+
 Dans le fichier functions.php
 
 ```php
@@ -115,8 +117,16 @@ Florent\FordPress::add_stylesheets(array(
 ));
 ```
 
+### Paramètres
+
+1. Nom
+2. Chemin du fichier CSS en partant du répertoire du theme comme racine
+3. Mettre à la valeur **true** pour l'usage d'un CDN par exemple
+
 Ajouter les javascripts à son thème proprement
 ----------------------------------------------
+
+### Usage
 
 Dans le fichier functions.php
 
@@ -125,6 +135,12 @@ Florent\FordPress::add_javascripts(array(
     array('app', 'assets/javascripts/app.js')
 ));
 ```
+
+### Paramètres
+
+1. Nom
+2. Chemin du fichier JS en partant du répertoire du theme comme racine
+3. Mettre à la valeur **true** pour l'usage d'un CDN par exemple
 
 Passer des paramètres depuis PHP vers Javascript
 ------------------------------------------------

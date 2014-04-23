@@ -223,6 +223,8 @@ e.g. [https://codex.wordpress.org/Function_Reference/register_post_type](https:/
 Ajout des taxonomies
 --------------------
 
+### Usage
+
 Dans le fichier functions.php
 
 ```php
@@ -231,11 +233,25 @@ Florent\FordPress::add_taxonomies(array(
 ));
 ```
 
+### Paramètres
+
+1. Nom de la taxonomie à enregister, idéalement pluriel en minuscules sans accents (Requis)
+2. Nom de la taxonomie au pluriel (Requis)
+3. Nom de la taxonomie au singulier (Requis)
+4. Valeur 1 pour masculin, 0 pour féminin (Requis)
+5. Post type (Requis)
+
 Include des partials dans les vues
 ----------------------------------
 
 ```php
 get_template_part('views/partials/<NOM-PARTIAL>');
+```
+
+Avec passage de variables
+
+```php
+include(locate_template('views/partials/<NOM-DU-PARTIAL>'));
 ```
 
 Pour les champs personnalisés

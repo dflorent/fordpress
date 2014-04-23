@@ -297,7 +297,7 @@ class Fordpress
                 'hierarchical' => true,
                 'show_ui' => true,
                 'query_var' => true,
-                'rewrite' => array( 'slug' => $taxonomy[0], 'with_front' => false  )
+                'rewrite' => array( 'slug' => $taxonomy[0], 'with_front' => false )
             );
 
             register_taxonomy( $taxonomy[0], $taxonomy[4], $args );
